@@ -24,7 +24,9 @@ Before resizing, create a snapshot of your EBS volume through the AWS Console fo
 First, check your current disk usage and file system type:
 ```bash
 df -hT
+sudo fdisk -l /dev/nvme0n1
 ```
+This will confirm that the disk has unallocated space.
 
 Verify if the volume has a partition:
 ```bash
@@ -33,25 +35,24 @@ sudo lsblk
 
 Extend the partition (if the volume uses partitions):
 ```bash
-sudo growpart /dev/xvda 1
+sudo growpart /dev/nvme0n1 1
+
 ```
+nvme0n1 is the disk, and 1 is the partition number.
 
 Extend the file system based on its type:
 
-For XFS:
-```bash
-sudo xfs_growfs -d /
-```
-
 For Ext4:
 ```bash
-sudo resize2fs /dev/xvda1
+sudo resize2fs /dev/nvme0n1p1
 ```
 
 ### Verification
 Verify the new size is recognized:
 ```bash
 df -h
+lsblk
+
 ```
 
 ## Troubleshooting
