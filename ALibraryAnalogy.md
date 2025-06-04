@@ -48,3 +48,9 @@ After expanding the partition, you need to resize the filesystem to utilize the 
 
   ```bash
   sudo resize2fs /dev/sdXn
+```
+- **For XFS Filesystem**
+
+```bash
+sudo xfs_growfs /mount/point
+```
